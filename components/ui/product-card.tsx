@@ -1,9 +1,10 @@
-"use clinet"
+"use client"
 
 import React from 'react'
+import { useRouter } from 'next/navigation'
+import { Expand, ShoppingBag } from 'lucide-react'
 
 import { Product } from '@/types'
-import { Expand, ShoppingBag } from 'lucide-react'
 import Currency from './currency'
 import { Button } from './button'
 
@@ -14,11 +15,20 @@ interface ProductCardProps {
 const ProductCard = ({
     data
 }: ProductCardProps) => {
+    const router = useRouter();
+
+    const handelClick = () => {
+        router.push(`/product/${data.id}`);
+    }
+
     return (
         <>
 
-            <div className="group border-gray-100/30 flex w-full max-w-xs flex-col self-center overflow-hidden rounded-lg border bg-gray-100 shadow-md">
-                <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" href="#">
+            <div
+                className="group border-gray-100/30 flex w-full max-w-xs flex-col self-center overflow-hidden rounded-lg border bg-gray-100 shadow-md"
+                onClick={handelClick}
+            >
+                <div className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-xl" >
                     <img
                         className="peer absolute top-0 right-0 h-full w-full object-cover"
                         src={data.images[0].url}
@@ -36,7 +46,7 @@ const ProductCard = ({
                         </div>
                     </div>
                     {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-black">39% OFF</span> --> */}
-                </a>
+                </div>
                 <div className="mt-4 px-5 pb-5">
                     <a href="#">
                         <h5 className="text-xl tracking-tight text-black">

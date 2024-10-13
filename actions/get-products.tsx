@@ -24,7 +24,7 @@ const getProducts = async (query: Query): Promise<Product[]> => {
                 isFeatured: query.isFeatured
             }
         })
-        const res = await axios(PUBLICURL);
+        const res = await axios(url);
         return res.data;
     } catch (error) {
         console.error('Error fetching categories:', error);
