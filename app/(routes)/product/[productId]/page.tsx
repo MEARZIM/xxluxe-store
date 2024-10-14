@@ -6,6 +6,7 @@ import getProducts from '@/actions/get-products'
 import Container from '@/components/ui/container';
 import ProductList from '@/components/product-list';
 import { Separator } from "@/components/ui/separator"
+import ProductDescription from '@/components/product-description';
 
 const SingleProductPage = async ({
   params
@@ -31,8 +32,7 @@ const SingleProductPage = async ({
             </div>
 
             <div className='mt-10 px-4 sm:mt-16 sm:px-0 lg:mt-0'>
-              Info
-
+              <ProductDescription data={product}/>
             </div>
           </div>
           <Separator className='my-10' />

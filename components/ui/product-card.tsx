@@ -48,14 +48,14 @@ const ProductCard = ({
                     {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-black">39% OFF</span> --> */}
                 </div>
                 <div className="mt-4 px-5 pb-5">
-                    <a href="#">
-                        <h5 className="text-xl tracking-tight text-black">
-                            {data.name}
-                        </h5>
-                        <p className='text-sm text-gray-500'>
-                            {data.category.name}
-                        </p>
-                    </a>
+                    
+                    <h5 className="text-xl tracking-tight text-black">
+                        {data.name}
+                    </h5>
+                    <p className='text-sm text-gray-500'>
+                        {data.category.name}
+                    </p>
+
                     <div className="mt-2 mb-5 flex items-center justify-between">
                         <p>
                             <span className="text-lg font-bold text-black">
@@ -64,12 +64,12 @@ const ProductCard = ({
                             {/* <span className="text-sm text-black line-through">$699</span> */}
                         </p>
                     </div>
-                    <a href="#" className="hover:border-white/40 flex items-center gap-x-1 justify-center rounded-md border border-transparent bg-blue-600 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <Button className="hover:border-white/40 w-full flex items-center gap-x-1 justify-center rounded-md border border-transparent bg-blue-600 hover:bg-blue-800 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300">
                         <ShoppingBag size={15} />
                         <span>
                             Add to cart
                         </span>
-                    </a>
+                    </Button>
                 </div>
             </div>
 
