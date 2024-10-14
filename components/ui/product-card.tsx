@@ -1,12 +1,13 @@
 "use client"
 
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { useRouter } from 'next/navigation'
 import { Expand, ShoppingBag } from 'lucide-react'
 
 import { Product } from '@/types'
 import Currency from './currency'
 import { Button } from './button'
+import { usePreviewModal } from '@/hooks/use-preview-modal'
 
 interface ProductCardProps {
     data: Product
@@ -16,9 +17,15 @@ const ProductCard = ({
     data
 }: ProductCardProps) => {
     const router = useRouter();
+    const previewModal = usePreviewModal();
 
     const handelClick = () => {
         router.push(`/product/${data.id}`);
+    }
+
+    const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+        previewModal.onOpen(data);
     }
 
     return (
@@ -37,7 +44,10 @@ const ProductCard = ({
                     {/* <img className="peer peer-hover:right-0 absolute top-0 -right-96 h-full w-full object-cover transition-all delay-100 duration-1000 hover:right-0" src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8OHx8c25lYWtlcnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=500&q=60" alt="product image" /> */}
                     <div className='opacity-0 group-hover:opacity-100 transition absolute w-full px-6 bottom-5'>
                         <div className='flex gap-x-6 justify-center'>
-                            <Button variant={"secondary"}>
+                            <Button
+                                variant={"secondary"}
+                                onClick={onPreview}
+                            >
                                 <Expand size={22} className='text-black' />
                             </Button>
                             <Button variant={"secondary"}>
@@ -48,8 +58,8 @@ const ProductCard = ({
                     {/* <span className="absolute top-0 left-0 m-2 rounded-full bg-black px-2 text-center text-sm font-medium text-black">39% OFF</span> --> */}
                 </div>
                 <div className="mt-4 px-5 pb-5">
-                    
-                    <h5 className="text-xl tracking-tight text-black">
+
+                    <h5 className="text-lg font-semibold lg:text-xl tracking-tight text-black">
                         {data.name}
                     </h5>
                     <p className='text-sm text-gray-500'>

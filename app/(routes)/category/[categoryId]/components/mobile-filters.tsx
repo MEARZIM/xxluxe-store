@@ -14,8 +14,7 @@ import {
 import { Color, Size } from '@/types'
 import { Button } from '@/components/ui/button'
 import { Plus } from 'lucide-react'
-import { Label } from '@/components/ui/label'
-import { Input } from '@/components/ui/input'
+
 import Filter from './filter'
 
 interface MobileFiltersProps {
