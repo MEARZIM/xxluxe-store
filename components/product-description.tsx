@@ -1,12 +1,13 @@
 "use client"
 
-import React from 'react'
+import React, { MouseEventHandler } from 'react'
 import { ShoppingCart, Zap } from 'lucide-react';
 
 import { Product } from '@/types'
 import { Button } from '@/components/ui/button';
 import Currency from '@/components/ui/currency';
 import { Separator } from '@/components/ui/separator';
+import useCart from '@/hooks/use-cart';
 
 interface ProductDescriptionProps {
   data: Product;
@@ -15,6 +16,12 @@ interface ProductDescriptionProps {
 const ProductDescription = ({
   data
 }: ProductDescriptionProps) => {
+  const cart = useCart();
+
+  const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+    event.stopPropagation();
+    cart.addItems(data);
+  }
   return (
     <div>
       <h1 className='text-3xl font-bold text-gray-900'>
@@ -54,6 +61,7 @@ const ProductDescription = ({
           <Button
             variant={"default"}
             className="w-[50%] flex items-center gap-x-1 justify-center rounded-lg border border-transparent bg-blue-600 hover:bg-blue-800 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+            onClick={onAddToCart}
           >
             <span className='px-2'> Add To Cart </span>
             <ShoppingCart size={20} />

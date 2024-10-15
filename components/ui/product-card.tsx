@@ -1,12 +1,13 @@
 "use client"
 
-import React, { MouseEventHandler } from 'react'
+import React, { MouseEventHandler, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import { Expand, ShoppingBag } from 'lucide-react'
 
 import { Product } from '@/types'
-import Currency from './currency'
-import { Button } from './button'
+import useCart from '@/hooks/use-cart'
+import { Button } from '@/components/ui/button'
+import Currency from '@/components/ui/currency'
 import { usePreviewModal } from '@/hooks/use-preview-modal'
 
 interface ProductCardProps {
@@ -17,6 +18,7 @@ const ProductCard = ({
     data
 }: ProductCardProps) => {
     const router = useRouter();
+    const cart = useCart();
     const previewModal = usePreviewModal();
 
     const handelClick = () => {
@@ -26,6 +28,11 @@ const ProductCard = ({
     const onPreview: MouseEventHandler<HTMLButtonElement> = (event) => {
         event.stopPropagation();
         previewModal.onOpen(data);
+    }
+
+    const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
+        event.stopPropagation();
+        cart.addItems(data);
     }
 
     return (
@@ -50,7 +57,10 @@ const ProductCard = ({
                             >
                                 <Expand size={22} className='text-black' />
                             </Button>
-                            <Button variant={"secondary"}>
+                            <Button
+                                variant={"secondary"}
+                                onClick={onAddToCart}
+                            >
                                 <ShoppingBag size={22} className='text-black' />
                             </Button>
                         </div>
@@ -74,7 +84,10 @@ const ProductCard = ({
                             {/* <span className="text-sm text-black line-through">$699</span> */}
                         </p>
                     </div>
-                    <Button className="hover:border-white/40 w-full flex items-center gap-x-1 justify-center rounded-md border border-transparent bg-blue-600 hover:bg-blue-800 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300">
+                    <Button
+                        className="hover:border-white/40 w-full flex items-center gap-x-1 justify-center rounded-md border border-transparent bg-blue-600 hover:bg-blue-800 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-blue-300"
+                        onClick={onAddToCart}
+                    >
                         <ShoppingBag size={15} />
                         <span>
                             Add to cart
