@@ -1,16 +1,17 @@
 "use client"
 
+import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
+import toast from 'react-hot-toast'
 
+import useCart from '@/hooks/use-cart'
 import { Button } from '@/components/ui/button'
 import Currency from '@/components/ui/currency'
-import useCart from '@/hooks/use-cart'
-import axios from 'axios'
-import toast from 'react-hot-toast'
 
 const Summary = () => {
     const searchParams = useSearchParams();
+    console.log(searchParams)
     const items = useCart((state) => state.items);
     const removeAll = useCart((state) => state.removeAllItems);
 
@@ -31,10 +32,10 @@ const Summary = () => {
 
     const onCheckOut = async () => {
         const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
-            productIds: items.map(item => item.id)
+            productsIds: items.map(item => item.id)
         })
-
         window.location = response.data.url;
+        
     }
 
     return (
