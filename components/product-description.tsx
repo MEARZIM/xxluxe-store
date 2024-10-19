@@ -1,5 +1,6 @@
 "use client"
 
+import axios from 'axios';
 import React, { MouseEventHandler } from 'react'
 import { ShoppingCart, Zap } from 'lucide-react';
 
@@ -17,6 +18,13 @@ const ProductDescription = ({
   data
 }: ProductDescriptionProps) => {
   const cart = useCart();
+
+  const onBuyNow = async () => {
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/checkout`, {
+      productsIds: [data.id]
+    })
+    window.location = response.data.url;
+  }
 
   const onAddToCart: MouseEventHandler<HTMLButtonElement> = (event) => {
     event.stopPropagation();
@@ -68,6 +76,7 @@ const ProductDescription = ({
           </Button>
 
           <Button
+            onClick={onBuyNow}
             variant={"default"}
             className="w-[50%] flex items-center gap-x-1 justify-center rounded-lg border border-transparent bg-red-500 hover:bg-red-600 px-5 py-2.5 text-center text-sm font-medium text-white focus:outline-none focus:ring-4 focus:ring-red-400"
           >

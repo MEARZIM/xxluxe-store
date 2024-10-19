@@ -35,7 +35,7 @@ const Summary = () => {
             productsIds: items.map(item => item.id)
         })
         window.location = response.data.url;
-        
+
     }
 
     return (
@@ -52,6 +52,7 @@ const Summary = () => {
                 </div>
             </div>
             <Button
+                disabled={items.length === 0}
                 variant={"outline"}
                 className='w-full mt-6'
                 onClick={onCheckOut}
